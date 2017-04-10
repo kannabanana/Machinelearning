@@ -15,9 +15,25 @@ Z = [weight,X];
 
 
 %solve for w
+%W = ((transpose(X)*X)^-1)*transpose(X)*Y;
+
+
+%solve for w with weights
 W = ((transpose(Z)*Z)^-1)*transpose(Z)*Y;
 
 
-%solve for SSE
-SSE = transpose((Y-XW))*(Y-XW);
+filename = 'housing_test.txt';
+[X,delimiterOut] = importdata(filename);
+
+Y = X(:,14);
+X(:,14) = [];
+Z = [weight,X];
+
+%solve for SSE of Training data without weights
+%SSE = transpose(Y-(X*W))*(Y-X*W);
+
+
+%solve for SSE of Training data with weights
+SSE = transpose(Y-(Z*W))*(Y-Z*W);
+
 disp(SSE);
