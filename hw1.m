@@ -1,6 +1,15 @@
 %PART ONE
 
-%get the matrix for the housing data
+%{get the matrix for the housing data
+tt = 'Are you training (1) or testing (2)? ';
+tt = input(tt);
+disp(tt);
+
+weight = 'Do you want to use weights? 1= yes 2= no. ';
+weight = input(weight);
+disp(weight);
+%}
+
 filename = 'housing_train.txt';
 [X,delimiterOut] = importdata(filename);
 
@@ -30,10 +39,10 @@ X(:,14) = [];
 Z = [weight,X];
 
 %solve for SSE of Training data without weights
-%SSE = transpose(Y-(X*W))*(Y-X*W);
+SSE = transpose(Y-(X*W))*(Y-X*W);
 
 
 %solve for SSE of Training data with weights
-SSE = transpose(Y-(Z*W))*(Y-Z*W);
+%SSE = transpose(Y-(Z*W))*(Y-Z*W);
 
 disp(SSE);
