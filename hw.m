@@ -3,13 +3,11 @@
 %weights or no weights
 w2 = 'Do you want to use weights? 1= yes 2= no. ';
 w2 = input(w2);
-disp(w2);
 
 
 %get the matrix for the housing data
 tt = 'Are you training (1) or testing (2)? ';
 tt = input(tt);
-disp(tt);
 
 
 filename = 'housing_train.txt';
@@ -32,16 +30,15 @@ if (w2 == 1)	%weights
 		%training
 		SSE = transpose(Y-(Z*W))*(Y-Z*W);
 		disp(SSE);
-	else	%test
+	else	%test------------------------------------------------------
 		filename = 'housing_test.txt';
 		[X,delimiterOut] = importdata(filename);
 
 		Y = X(:,14);
 		X(:,14) = [];
-		disp(W);
-		disp(weight);
-		Z = [weight,X];
-		disp(Z);
+
+%		Z = [weight,X];
+
 		SSE = transpose(Y-(Z*W))*(Y-Z*W);
 		disp(SSE);
 	end
