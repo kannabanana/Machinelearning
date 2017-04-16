@@ -1,0 +1,23 @@
+
+newtheta = w;
+learning_rate = .01;
+for k = 1 to n
+	sum2 = 0
+	for i = 1 to m
+		sum2 = sum2+1;
+		%sum2 = sum2 + (hypothesis(x(i),w) - y(i))*x(i)(k);
+	end
+	nudge = sum2 * learning_rate;
+	newtheta(k) = newtheta(k)-nudge;
+end
+w = newtheta;
+
+
+
+grad = zeros(n+1,1);
+for i=1:m,
+	grad = grad+ (y(i) - sigmoid(w'*x(:,i)))*x(:,i);
+end;
+disp(grad);
+
+
