@@ -1,0 +1,13 @@
+
+w = zeros(1,256);
+for i = 0:1400
+	delta = zeros(1,256);
+	for j=1:256			%go through all 256 features
+		y1 = 1/(1+(exp(-(transpose(w)))*x(j)));
+		err = y(j)-y1;
+		delta = delta+(err*x(j));
+	end
+	w = w+(learning_rate*delta);
+end
+
+disp(w);

@@ -6,25 +6,16 @@ filename = 'usps-4-9-train.csv';
 y = x(:,end);
 x(:,end) = [];
 
-n = 256;	%number of features
-m  = 700;
-
-%w= ((transpose(x)*x)^-1)*transpose(x)*y;
-w = zeros(1,700);
-
-n = 256;
-m = 700;
+learning_rate = .0001;
 
 
-newtheta = w;
-learning_rate = .01;
-for k = 1:n
-	the_sum = 0
-	for i = 1:m
-		the_sum = the_sum + (hypothesis(x(i),w) - y(i))*x(i)(k);
+w = zeros(1,256);
+for i = 1:1500
+	delta = zeros(1,256);
+	for j=1:1400
+		y1 = 1/(1+(exp(-(w)*(transpose(x(j,:))))));
+		err = y(j)-y1;
+		delta = delta+(err*x(j,:));
 	end
-	nudge = the_sum * learning_rate;
-	newtheta(k) = newtheta(k)-nudge;
+	w = w+(learning_rate*delta);
 end
-w = newtheta;
-disp(w);
