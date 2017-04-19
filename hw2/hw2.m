@@ -6,13 +6,12 @@ filename = 'usps-4-9-train.csv';
 y = x(:,end);
 x(:,end) = [];
 
-learning_rate = [.2,.02,.002,.0002,.0002,.00002,.000002,.000002,.00000002];
+learning_rate = [.2,.02,.002,.0002,.00002,.000002,.000002,.00000002,.00000000000000000000002];
 
-
-for z=1:5
+for z=1:size(learning_rate);
 	disp(learning_rate(z));
 	w = zeros(1,256);
-	for i = 1:1500
+	for i = 1:10000
 		delta = zeros(1,256);
 		for j=1:1400
 			y1 = 1/(1+(exp(-(w)*(transpose(x(j,:))))));
@@ -23,3 +22,18 @@ for z=1:5
 	end
 	disp(w);
 end
+
+%{
+filename = 'usps-4-9-test.csv';
+[x,delimiterOut] = importdata(filename);
+y = x(:,end);
+x(:,end) = [];
+
+
+%use the same w
+for j=1:800
+	y1 = 1/(1+(exp(-(w)*(transpose(x(j,:))))));
+	err = y(j)-y1;
+	disp(err);
+end
+%}
