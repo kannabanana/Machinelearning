@@ -8,7 +8,7 @@ x(:,end) = [];
 
 learning_rate = [.2,.02,.002,.0002,.00002,.000002,.000002,.00000002,.00000000000000000000002];
 
-for z=1:size(learning_rate);
+for z=1:9;
 	disp(learning_rate(z));
 	w = zeros(1,256);
 	for i = 1:10000
@@ -22,6 +22,7 @@ for z=1:size(learning_rate);
 	end
 	disp(w);
 end
+
 
 %{
 filename = 'usps-4-9-test.csv';
