@@ -80,39 +80,39 @@ for z = 1:6
 	if z ==1
 		filename = 'lambda1_train.csv';
 		csvwrite(filename,accuracy_train);
-		filename = 'lambda1_train.csv';
+		filename = 'lambda1_test.csv';
 		csvwrite(filename,accuracy_test);
 
 
 	elseif z ==2
 		filename = 'lambda2_train.csv';
 		csvwrite(filename,accuracy_train);
-		filename = 'lambda2_train.csv';
+		filename = 'lambda2_test.csv';
 		csvwrite(filename,accuracy_test);
 
 	elseif z ==3
 		filename = 'lambda3_train.csv';
 		csvwrite(filename,accuracy_train);
-		filename = 'lambda3_train.csv';
+		filename = 'lambda3_test.csv';
 		csvwrite(filename,accuracy_test);
 
 
 	elseif z ==4
 		filename = 'lambda4_train.csv';
 		csvwrite(filename,accuracy_train);
-		filename = 'lambda4_train.csv';
+		filename = 'lambda4_test.csv';
 		csvwrite(filename,accuracy_test);
 
 	elseif z ==5
 		filename = 'lambda5_train.csv';
 		csvwrite(filename,accuracy_train);
-		filename = 'lambda5_train.csv';
+		filename = 'lambda5_test.csv';
 		csvwrite(filename,accuracy_test);
 
 	else
 		filename = 'lambda6_train.csv';
 		csvwrite(filename,accuracy_train);
-		filename = 'lambda6_train.csv';
+		filename = 'lambda6_test.csv';
 		csvwrite(filename,accuracy_test);
 	end
 end
