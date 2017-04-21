@@ -13,8 +13,9 @@ x2(:,end) = [];
 accuracy_train = [];
 accuracy_test = [];
 c_train = 0;
-c_train = 0;
-total = 0;
+c_test = 0;
+total_train = 0
+total_test = 0;
 
 learning_rate = .0000001;
 w = zeros(1,256);
@@ -36,7 +37,7 @@ for i = 1:10000
 		if (prediction == y(j))
 			c_train = c_train+1;
 		end
-		err = y(j)-y1;
+		err = y(j)-yhat;
 		delta = delta+(err*x(j,:));
 		total_train = total_train+1;
 	end
@@ -53,7 +54,7 @@ for i = 1:10000
 		end	
 
 		if (prediction == y2(j))
-			c_train = c_train+1;
+			c_test = c_test+1;
 		end
 		total_test = total_test+1;
 	end

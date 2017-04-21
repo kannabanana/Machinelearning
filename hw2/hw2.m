@@ -34,29 +34,36 @@ disp(b);
 str = 'executing part 2';
 disp(str);
 
-%read in from .csv file
+
 filename = 'usps-4-9-train.csv';
 [x,delimiterOut] = importdata(filename);
-
-%last column of contains two classes (0 = 4, 1 = 9);
 y = x(:,end);
 x(:,end) = [];
 
 
-accuracy = [];
+filename = 'usps-4-9-test.csv';
+[x2,delimiterOut] = importdata(filename);
+y2 = x2(:,end);
+x2(:,end) = [];
+
+
+accuracy_train = [];
+accuracy_test = [];
 c_train = 0;
+c_test = 0;
+total_train = 0
+total_test = 0;
 
 learning_rate = .0000001;
 w = zeros(1,256);
-total = 0;
 
 for i = 1:10000
 	delta = zeros(1,256);
 	for j=1:1400	
 
-		y1 = 1/(1+(exp(-(w)*(transpose(x(j,:))))));
-		zero = 1-y1;
-		ratio = y1/zero;
+		yhat = 1/(1+(exp(-(w)*(transpose(x(j,:))))));
+		zero = 1-yhat;
+		ratio = yhat/zero;
 
 		if (ratio >1)
 			prediction = 1;
@@ -67,45 +74,15 @@ for i = 1:10000
 		if (prediction == y(j))
 			c_train = c_train+1;
 		end
-		err = y(j)-y1;
+		err = y(j)-yhat;
 		delta = delta+(err*x(j,:));
-		total = total+1;
+		total_train = total_train+1;
 	end
-	w = w+(learning_rate*delta);
-	ratio = c_train/total;
-	accuracy(i) = ratio;
-	c_train = 0;
-	total = 0;
-		%get a new w - update and guess based on this
-end
+	for j=1:800
 
-str = 'writing out training accuracy to traindata.csv';
-disp(str);
-filename = 'traindata.csv';
-csvwrite(filename,accuracy);
-
-
-
-%read in from .csv file
-filename = 'usps-4-9-test.csv';
-[x,delimiterOut] = importdata(filename);
-
-%last column of contains two classes (0 = 4, 1 = 9);
-y = x(:,end);
-x(:,end) = [];
-
-
-accuracy = [];
-c_test = 0;
-total = 0;
-
-for i = 1:10000
-	delta = zeros(1,256);
-	for j=1:800	
-
-		y1 = 1/(1+(exp(-(w)*(transpose(x(j,:))))));
-		zero = 1-y1;
-		ratio = y1/zero;
+		yhat = 1/(1+(exp(-(w)*(transpose(x2(j,:))))));
+		zero = 1-yhat;
+		ratio = yhat/zero;
 
 		if (ratio >1)
 			prediction = 1;
@@ -113,21 +90,33 @@ for i = 1:10000
 			prediction = 0;
 		end	
 
-		if (prediction == y(j))
+		if (prediction == y2(j))
 			c_test = c_test+1;
 		end
-		err = y(j)-y1;
-		delta = delta+(err*x(j,:));
-		total = total+1;
+		total_test = total_test+1;
 	end
-	ratio = c_test/total;
-	accuracy(i) = ratio;
+
+	w = w+(learning_rate*delta);
+	ratio = c_train/total_train;
+	accuracy_train(i) = ratio;
+	
+	ratio = c_test/total_test;
+	accuracy_test(i) = ratio;
+
 	c_test = 0;
-	total = 0;
+	c_train = 0;
+	total_test = 0;
+	total_train = 0;
+		%get a new w - update and guess based on this
 end
 
+b = 'writing to traindata.csv and testdata.csv';
+disp(b);
 
-str = 'writing out testing accuracy to testdata.csv';
-disp(str);
+filename = 'traindata.csv';
+csvwrite(filename,accuracy_train);
 filename = 'testdata.csv';
-csvwrite(filename,accuracy);
+csvwrite(filename,accuracy_test);
+
+
+b = 'starting part 4';
