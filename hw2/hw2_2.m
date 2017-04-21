@@ -6,13 +6,9 @@ filename = 'usps-4-9-train.csv';
 y = x(:,end);
 x(:,end) = [];
 
-%learning_rate = [.2,.02,.002,.0002,.00002,.000002,.000002,.00000002,.00000000000000000000002];
-
 
 accuracy = [];
-right_train = 0;
-right_test = 0;
-total = 0;
+error_train = 0;
 
 learning_rate = .0000001;
 w = zeros(1,256);
@@ -31,22 +27,18 @@ for i = 1:10000
 			prediction = 0;
 		end	
 
-		if (prediction == y(j))
-			right_train = right_train+1;
+		if (prediction ~= y(j))
+			error_train = error_train+1;
 		end
 		err = y(j)-y1;
 		delta = delta+(err*x(j,:));
-		total = total+1;
 
 	end
 	w = w+(learning_rate*delta);
-	accuracy_c = right_train/total;
-	accuracy(i) = accuracy_c;
-	right_train = 0;
-	total = 0;
+	accuracy(i) = error_train;
+	error_train = 0;
 		%get a new w - update and guess based on this
 end
-
 
 filename = 'traindata.xlsx';
 xlswrite(filename,accuracy);
@@ -63,9 +55,7 @@ x(:,end) = [];
 
 
 accuracy = [];
-right_train = 0;
-right_test = 0;
-total = 0;
+error_test = 0;
 
 learning_rate = .0000001;
 
@@ -83,24 +73,17 @@ for i = 1:10000
 			prediction = 0;
 		end	
 
-		if (prediction == y(j))
-			right_train = right_train+1;
+		if (prediction ~= y(j))
+			error_test = error_test+1;
 		end
 		err = y(j)-y1;
 		delta = delta+(err*x(j,:));
-		total = total+1;
 
 	end
-	w = w+(learning_rate*delta);
-	accuracy_c = right_train/total;
-	accuracy(i) = accuracy_c;
-	right_train = 0;
-	total = 0;
-		%get a new w - update and guess based on this
+	accuracy(i) = error_test;
+	error_test = 0;
 end
 
 
 filename = 'testdata.xlsx';
 xlswrite(filename,accuracy);
-
-
