@@ -1,0 +1,5 @@
+1. ssh to flip
+2. navitage to the directory where the hw2.m file is located
+3. type matlab -nodesktop -nosplash
+4. You should see a startup screen and type hw2
+5. Once the program is done completing (part 4 takes a while), you should see several .csv files in the directory
