@@ -8,6 +8,8 @@ x(:,end) = [];
 
 %learning_rate = [.2,.02,.002,.0002,.00002,.000002,.000002,.00000002,.00000000000000000000002];
 
+
+accuracy = [];
 right_train = 0;
 right_test = 0;
 total = 0;
@@ -38,11 +40,13 @@ for i = 1:10000
 
 	end
 	w = w+(learning_rate*delta);
-	str = 'ACCURACY';
-	disp(str);
-	accuracy = right_train/total;
-	disp(accuracy);
+	accuracy_c = right_train/total;
+	accuracy(i) = accuracy_c;
 	right_train = 0;
 	total = 0;
 		%get a new w - update and guess based on this
 end
+
+
+filename = 'traindata.xlsx';
+xlswrite(filename,accuracy);
