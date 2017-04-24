@@ -10,6 +10,7 @@ def main():
 	Xtrain, Ytrain, Xtest, Ytest = getData()
 
 	print 'starting part 1.1';
+	euclidean(Xtrain)
 
 def getData():
 	training = genfromtxt('knn_train.csv', delimiter=',')
@@ -23,6 +24,16 @@ def getData():
 
 	return XTrain, YTrain, XTest, YTest
 
+
+def euclidean(Xtrain):
+	#p.4 - squareroot of (x-xi)^T(x-xi)	
+	#284 examples in training
+	i = 0;
+	for i in range(283):
+		x = (Xtrain-Xtrain(i))
+		xt = np.transpose(x);
+		distance = x*xt;
+		print distance
 
 if __name__ == '__main__':
 	main()
