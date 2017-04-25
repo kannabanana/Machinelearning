@@ -10,7 +10,10 @@ def main():
 	Xtrain, Ytrain, Xtest, Ytest = getData()
 
 	print 'starting part 1.1';
-	euclidean(Xtrain)
+	i = 1;
+	for i in range(51):
+		training_error, cross_validation, testing_error = euclidean(Xtrain,Ytrain,Xtest,Ytest,K)
+
 
 def getData():
 	training = genfromtxt('knn_train.csv', delimiter=',')
@@ -25,15 +28,18 @@ def getData():
 	return XTrain, YTrain, XTest, YTest
 
 
-def euclidean(Xtrain):
-	#p.4 - squareroot of (x-xi)^T(x-xi)	
-	#284 examples in training
-	i = 0;
-	for i in range(283):
-		x = (Xtrain-Xtrain(i))
-		xt = np.transpose(x);
-		distance = x*xt;
-		print distance
+def part1(Xtrain,Ytrain,Xtest,Ytest,K):
+	i = 0
+	j = 0
+	for i in range(247):
+		#check the distance	
+		distance = euclidean(Xtrain,Ytrain,Xtest,Ytest);
+		for j in range(51):
+			smallest = min(distance);
+				
+
+def euclidean(Xtrain,Ytrain,Xtest,Ytest):
+	return distance
 
 if __name__ == '__main__':
 	main()
