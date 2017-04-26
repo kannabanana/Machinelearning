@@ -11,11 +11,8 @@ def main():
 	length = len(Xtest);
 
 	print 'starting part 1.1';
-	part1(Xtrain,Ytrain,Xtest,Ytest,1);
-#	k = 1;
-#	for k in range(51):
-#		training_error, cross_validation, testing_error = part1(Xtrain,Ytrain,Xtest,Ytest,k)
-
+	distance = euclidean(Xtrain,Xtest);
+	print distance
 
 def getData():
 	training = genfromtxt('knn_train.csv', delimiter=',')
@@ -28,6 +25,16 @@ def getData():
 	YTest = np.array(testing[:,0:1])
 
 	return XTrain, YTrain, XTest, YTest
+
+
+
+#find euclidean distance
+def euclidean(Xtrain,Xtest):
+	distance = 0
+	x = 0
+	for x in range(31):
+		distance += (Xtrain[x]-Xtest[x]) **2
+	return np.sqrt(distance)
 
 
 if __name__ == '__main__':
