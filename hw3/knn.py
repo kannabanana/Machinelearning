@@ -27,8 +27,6 @@ def getNeighbors(testx,trainx):
             sqrt_dist = np.sqrt(sum(np.square(test_row - train_row)))
             neighbors[test_index].append([sqrt_dist, train_index])
 
-        # if test_index == 5:
-        #     break
 
     for index in neighbors:
         neighbors[index] = sorted(neighbors[index], key=itemgetter(0))
@@ -63,18 +61,32 @@ def forGivenK(neighbors,trainy,testy):
 
 
 def main():
-    trainx,trainy,testx,testy = get_data();
+	#get data
+	trainx,trainy,testx,testy = get_data();
+
+"""
+	print 'finding the testing error...'
+	neighbors = getNeighbors(testx,trainx)
+	acc_dict = forGivenK(neighbors,trainy,testy)
+	print acc_dict
 
 
-    print 'finding the testing error...'
-    neighbors = getNeighbors(testx,trainx)
-    acc_dict = forGivenK(neighbors,trainy,testy)
-    print acc_dict
+	print 'finding the training error...'
+	neighbors = getNeighbors(trainx,trainx)
+	acc_dict = forGivenK(neighbors,trainy,trainy)
+	print acc_dict
+"""
 
 
+	print 'find leave-one-out cross-validation...'
+	print 'finding the knn cross validation...'
+	for i in range(0,283):
+		neighbors = getNeighbors(trainx,trainx[i])
+		acc_dict = forGivenK(neighbors,trainy,trainy)
+		act_dict_master = act_dict_master + act_dict
 
-    print 'finding the training error...'
-    neighbors = getNeighbors(trainx,trainx)
-    acc_dict = forGivenK(neighbors,trainy,trainy)
-    print acc_dict
+
+	act_dict_master = act_dict_master/284
+	print act_dict_master
+
 main()
