@@ -65,7 +65,6 @@ def best_split(dataset):
 		for row in dataset:
 			groups = make_split(feature, row[feature], dataset)
 			gini = calculate_gini(groups, classifications)
-			# print("Feat #%d < %.4f  Gini = %.4f" % (feature, row[feature], gini))
 			if gini < best_score:
 				best_feat, best_val, best_score, best_groups = feature, row[feature], gini, groups
 	return {'feature': best_feat, 'value': best_val, 'groups': best_groups, 'gini': best_score}
@@ -100,6 +99,35 @@ def splitting(node, max_depth, depth):
 
 
 
+def predict(node, row):
+	if row[node['feature']] < node['value']:
+		if isinstance(node['left'], dict):
+			return predict(node['left'], row)
+		else:
+			return node['left']
+	else:
+		if isinstance(node['right'], dict):
+			return predict(node['right'], row)
+		else:
+			return node['right']
+
+
+
+def get_accuracy(dataset, tree):
+	correct = 0
+	total = 0
+	errors = 0
+	for row in dataset:
+		prediction = predict(tree, row)
+		total += 1
+		if row[0] == prediction:
+			correct += 1
+		else:
+			errors += 1
+	return (correct / total), errors
+
+
+
 # Build the tree
 def build_decision_tree(dataset, max_depth):
 	root = best_split(dataset)
@@ -111,7 +139,7 @@ def build_decision_tree(dataset, max_depth):
 # Print the tree
 def print_decision_tree(node, depth=0):
 	if isinstance(node, dict):
-		print("%s[Feature%d < %.4f] at Gini=%.4f" % ((depth*'    ', node['feature'], node['value'], node['gini'])))
+		print("%s[Feature%d < %.4f] w/ Gini of %.4f\n" % ((depth*'    ', node['feature'], node['value'], node['gini'])))
 		print_decision_tree(node['left'], depth+1)
 		print_decision_tree(node['right'], depth+1)
 	else:
@@ -124,15 +152,16 @@ def part_2_problem_1():
 	X_train_norm = np.roll(np.append(normalize_data(X_train_set), Y_actual_train, 1), 1)
 	X_test_norm = np.roll(np.append(normalize_data(X_test_set), Y_actual_test, 1), 1)
 
-	test_tree = build_decision_tree(X_test_norm, 1)
-	print("\n\n")
-	print_decision_tree(test_tree)
-	print("\n\n")
+	print("\n-------------- Pt. 2 - Problem 1: Stub Decision Tree --------------")
+	train_tree = build_decision_tree(X_train_norm, 1)
+	print("\n")
+	print_decision_tree(train_tree)
+	print("\n")
 
-	test_tree = build_decision_tree(X_train_norm, 1)
-	print("\n\n")
-	print_decision_tree(test_tree)
-	print("\n\n")
+	train_accuracy, train_error = get_accuracy(X_train_norm, train_tree)
+	test_accuracy, test_error = get_accuracy(X_test_norm, train_tree)
+	print("Training Accuracy: ", train_accuracy, "\nTraining Errors: ", train_error)
+	print("\nTesting Accuracy: ", test_accuracy, "\nTesting Errors: ", test_error, "\n\n")
 
 
 
@@ -141,17 +170,19 @@ def part_2_problem_2():
 	X_train_norm = np.roll(np.append(normalize_data(X_train_set), Y_actual_train, 1), 1)
 	X_test_norm = np.roll(np.append(normalize_data(X_test_set), Y_actual_test, 1), 1)
 
-	test_tree = build_decision_tree(X_test_norm, 6)
-	print("\n\n")
-	print_decision_tree(test_tree)
-	print("\n\n")
+	print("\n-------------- Pt. 2 - Problem 2: 6 Level Decision Tree --------------")
+	train_tree = build_decision_tree(X_train_norm, 6)
+	print("\n")
+	print_decision_tree(train_tree)
+	print("\n")
 
-	test_tree = build_decision_tree(X_train_norm, 6)
-	print("\n\n")
-	print_decision_tree(test_tree)
-	print("\n\n")
+	train_accuracy, train_error = get_accuracy(X_train_norm, train_tree)
+	test_accuracy, test_error = get_accuracy(X_test_norm, train_tree)
+	print("\nTraining Accuracy: ", train_accuracy, "\nTraining Errors: ", train_error)
+	print("\nTesting Accuracy: ", test_accuracy, "\nTesting Errors: ", test_error, "\n\n")
+
 
 
 if __name__ == '__main__':
 	part_2_problem_1()
-	# part_2_problem_2()
+	part_2_problem_2()
