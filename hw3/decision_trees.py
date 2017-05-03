@@ -139,11 +139,11 @@ def build_decision_tree(dataset, max_depth):
 # Print the tree
 def print_decision_tree(node, depth=0):
 	if isinstance(node, dict):
-		print("%s[Feature%d < %.4f] w/ Gini of %.4f" % ((depth*'----', node['feature'], node['value'], node['gini'])))
+		print(depth*"----", "[Feature", node['feature'], " < ", node['value'], "], Gini:", node['gini'])
 		print_decision_tree(node['left'], depth+1)
 		print_decision_tree(node['right'], depth+1)
 	else:
-		print("%s[%s]" % ((depth*'----', node)))
+		print(depth*"----", "[", node, "]")
 
 
 
