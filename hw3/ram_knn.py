@@ -90,32 +90,32 @@ def main():
     acc_dict = forGivenK(neighbors,trainy,testy)
     print acc_dict
 
-    # plt.plot(range(1,52,2), acc_dict)
-    # plt.xlabel('k')
-    # plt.ylabel('errors')
-    # plt.show()
-    #
-    #
-    # return
-    #
-    #
-    print 'finding the training error...'
-    neighbors = getNeighbors(trainx,trainx)
-    acc_dict = forGivenK(neighbors,trainy,trainy)
-    print acc_dict
-    # return
-
-    final_array = [0] * 26
-    for i in range(284):
-        neighbors = getNeighbors(trainx[i], trainx - trainx[i])
-        acc_dict = forGivenK(neighbors, trainy, trainy)
-        final_array = [i + j for i,j in zip(final_array, acc_dict)]
-
-    plt.plot(range(1,52,2), [x / 284 for x in final_array])
-    plt.title('Leave one out Cross Validation')
+    plt.plot(range(1,52,2), acc_dict)
     plt.xlabel('k')
-    plt.ylabel('error rate')
+    plt.ylabel('errors')
     plt.show()
+    #
+    #
+    # return
+    #
+    #
+    #print 'finding the training error...'
+    #neighbors = getNeighbors(trainx,trainx)
+    #acc_dict = forGivenK(neighbors,trainy,trainy)
+    #print acc_dict
+    # return
+
+    #final_array = [0] * 26
+    #for i in range(284):
+    #    neighbors = getNeighbors(trainx[i], trainx - trainx[i])
+    #    acc_dict = forGivenK(neighbors, trainy, trainy)
+    #    final_array = [i + j for i,j in zip(final_array, acc_dict)]
+
+    #plt.plot(range(1,52,2), [x / 284 for x in final_array])
+    #plt.title('Leave one out Cross Validation')
+    #plt.xlabel('k')
+    #plt.ylabel('error rate')
+    #plt.show()
 
 
 if __name__ == '__main__':
