@@ -15,12 +15,46 @@ def get_data():
 	return cluster
 
 
+
+
+def plot_ded(Z):
+	plt.figure(figsize=(25, 10))
+	plt.title('Hierarchical Clustering Dendrogram')
+	plt.xlabel('sample index')
+	plt.ylabel('distance')
+	dendrogram(
+	    Z,
+	    leaf_rotation=90.,  # rotates the x axis labels
+	    leaf_font_size=8.,  # font size for the x axis labels
+	)
+	plt.show()
+
+
+
 def main():
 	c_cluster = get_data()
 	print c_cluster
+
+
 	print 'finding 10 single link clusters...'
-	Z = linkage(c_cluster,'ward')
-	print Z[:10]
+	plt.xlabel('Cluster number')
+   	plt.ylabel('Distance')
+    	Z = linkage(c_cluster, method='single')
+    	d = dendrogram(Z, p=10, truncate_mode = 'lastp')
+    	plt.plot()
+    	plt.show()
+
+
+
+	print 'finding 10 complete link clusters...'
+	plt.xlabel('Cluster number')
+   	plt.ylabel('Distance')
+    	Z = linkage(c_cluster, method='complete')
+    	d = dendrogram(Z, p=10, truncate_mode = 'lastp')
+    	plt.plot()
+    	plt.show()
+
+
 
 
 if __name__ == '__main__':
