@@ -23,9 +23,20 @@ def single_link(c_cluster,o_cluster):
 			for j in range(1,len(c_cluster)):
 				distance = min_cluster_distance(c_cluster,x,j)
 				min_holder.append([distance,j]);
-				min_holder = sorted(min_holder,key=itemgetter(0))
-				print min_holder
-						
+
+			min_holder = sorted(min_holder,key=itemgetter(0))
+			c_cluster = np.delete(c_cluster, j, axis=None)
+			c_cluster = np.delete(c_cluster, x, axis=None)
+
+			A = o_cluster[x]
+			B = o_cluster[j]	
+			o_cluster = np.delete(o_cluster, j, 0)
+			o_cluster = np.delete(o_cluster,x,0)
+			o_cluster[x] = np.add(B,A)
+		
+		c_cluster = o_cluster
+	print 'with ten clusters we have...'
+	print o_cluster
 	return 1
 
 
@@ -35,18 +46,15 @@ def min_cluster_distance(c_cluster,x,j):
 	distance = 10000000000
 	A = c_cluster[x]
 	B = c_cluster[j]
-	length = len(B)
-	if length == 784:
-		distance = np.sqrt(sum(np.square(A - B)))
-	else:
-		for b in range(0,len(A)):
-			for c in range(0,len(B)):
-				distance2 = np.sqrt(sum(np.square(A - B)))
-				if distance2 != 0:
-					if (distance > distance2):
-						distance = distance2
+	d = np.shape(A)
+	c = np.shape(B)
+	for b in range(0,d[0]):
+		for j in range(0,c[0]):
+			distance2 = np.sqrt(sum(np.square(A - B)))
+			if distance2 != 0:
+				if (distance > distance2):
+					distance = distance2
 	return distance
-
 
 
 def main():
