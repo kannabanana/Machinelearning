@@ -22,24 +22,31 @@ def single_link(c_cluster,o_cluster):
 			min_holder = [];
 			for j in range(1,len(c_cluster)):
 				distance = min_cluster_distance(c_cluster,x,j)
-				print distance			
+				min_holder.append([distance,j]);
+				min_holder = sorted(min_holder,key=itemgetter(0))
+				print min_holder
+						
 	return 1
+
 
 
 #finding the minimum values between two different clusters
 def min_cluster_distance(c_cluster,x,j):
-	distance = 100
+	distance = 10000000000
 	A = c_cluster[x]
 	B = c_cluster[j]
-	print len(A)
-	print len(B)
-	for a in range(0,len(A)):
-		for b in range(0,len(B)):
-			distance2 = np.sqrt(sum(np.square(A - B)))
-			if distance2 != 0:
-				if distance > distance2:
-					distance = distance2
+	length = len(B)
+	if length == 784:
+		distance = np.sqrt(sum(np.square(A - B)))
+	else:
+		for b in range(0,len(A)):
+			for c in range(0,len(B)):
+				distance2 = np.sqrt(sum(np.square(A - B)))
+				if distance2 != 0:
+					if (distance > distance2):
+						distance = distance2
 	return distance
+
 
 
 def main():
