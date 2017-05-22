@@ -9,7 +9,7 @@ from sklearn.preprocessing import normalize
 
 #getting the cluster data
 def get_data():
-	cluster = pd.read_csv('data-1.txt', index_col=False, header=None)
+	cluster = pd.read_csv('data-2.txt', index_col=False, header=None)
 	cluster = cluster.as_matrix()
 	return cluster
 
