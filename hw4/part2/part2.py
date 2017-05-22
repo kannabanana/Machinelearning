@@ -21,35 +21,25 @@ def single_link(c_cluster,o_cluster):
 		for x in range(1,len(c_cluster)):
 			min_holder = [];
 			for j in range(1,len(c_cluster)):
-				#call the min function
-				distance = min_cluster_distance
-				min_holder.append(distance,j);
-
-				min_holder = sorted(min_holder[i],key=immgetter(0)
-				c_cluster = np.delete(c_cluster, j, 0)
-				c_cluster = np.delete(c_cluster, x, 0)
-
-				#c_cluster = c_cluster - c_cluster[j]
-				#c_cluster = c_cluster - c_cluster[x]
-
-				o_cluster = np.delete(o_cluster, j, 0)
-				o_cluster[x] = np.add(o_cluster[j],o_cluster[x])
-				#o_cluster[x] = o_cluster[x]+o_cluster[j]
-				#o_cluster = o_cluster - o_cluster[j];
-			c_cluster = o_cluster	
+				distance = min_cluster_distance(c_cluster,x,j)
+				print distance			
+	return 1
 
 
-
-#find min between two clusters
+#finding the minimum values between two different clusters
 def min_cluster_distance(c_cluster,x,j):
 	distance = 100
-	for len(c_cluster[x]):
-		for len(c_cluster[j]):
-			updated_distance = np.sqrt(sum(np.square(c_cluster[x] - c_cluster[j])))
-			if (distance > updated_distance):
-				distance = updated_distance
+	A = c_cluster[x]
+	B = c_cluster[j]
+	print len(A)
+	print len(B)
+	for a in range(0,len(A)):
+		for b in range(0,len(B)):
+			distance2 = np.sqrt(sum(np.square(A - B)))
+			if distance2 != 0:
+				if distance > distance2:
+					distance = distance2
 	return distance
-
 
 
 def main():
@@ -58,9 +48,6 @@ def main():
 
 	print 'finding 10 single link clusters...'
 	single_link(c_cluster,o_cluster)
-   	
 
 if __name__ == '__main__':
-    main()
-
-
+	main()
