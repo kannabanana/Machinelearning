@@ -26,8 +26,13 @@ def generateMPD():
 			A.append(B)
 		file.write(str(A))
 		file.write("\n\n")
-	file.close()
+	reward = list()
+	for x in range(0,n):
+		k = randint(-5,5)
+		reward.append(k)
 
+	file.write(str(reward))
+	file.close()
 
 def main():
 	generateMPD()
