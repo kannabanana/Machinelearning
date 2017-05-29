@@ -74,7 +74,7 @@ def getError(clusters, centers):
 def main():
     # k = 2
 
-    df = pd.read_csv('data.txt', index_col=False)
+    df = pd.read_csv('data-2.txt', index_col=False)
     df = df.as_matrix()
 
     centers = {}

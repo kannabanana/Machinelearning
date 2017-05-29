@@ -1,6 +1,6 @@
 from random import randint
 import pandas as pd
-import numpy as np
+import numpy as np, numpy.random
 import math, sys
 from operator import itemgetter, add
 from scipy.cluster.hierarchy import dendrogram,linkage
@@ -11,27 +11,27 @@ from sklearn.preprocessing import normalize
 
 #getting the cluster data
 def generateMPD():
-	n = randint(1,5)		#actions
-	m = randint(1,5)		#states
-		
-	A = rowequalsone()
-	print A
+	n = randint(2,5)		#actions
+	m = randint(2,5)		#states
+	file = open("MPD.txt","w")
+	file.write(str(n))
+	file.write("\t")
+	file.write(str(m))	
+	file.write("\n")
 
-def rowequalsone():
-	check = 0
-	num = [0,.1,.2,.3,.4,.5,.6,.7,.8,.9,1]
-	while check == 0:
-		for x in range(0,3):
-			j = randint(0,10)
-			A.append(num(j))
-		if np.sum(A) == 1:
-			check = 1
-		else:
-			check = 0
-	return A
+	for x in range(0,m):
+		A = list()
+		for x in range(0,n):
+			B = np.random.dirichlet(np.ones(n),size=1)
+			A.append(B)
+		file.write(str(A))
+		file.write("\n\n")
+	file.close()
+
 
 def main():
 	generateMPD()
+
 
 if __name__ == '__main__':
 	main()
