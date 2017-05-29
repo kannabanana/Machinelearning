@@ -19,13 +19,16 @@ def generateMPD():
 	file.write(str(m))	
 	file.write("\n")
 
+	total = list()
 	for x in range(0,m):
 		A = list()
 		for x in range(0,n):
 			B = np.random.dirichlet(np.ones(n),size=1)
 			A.append(B)
+		total.append(A)
 		file.write(str(A))
 		file.write("\n\n")
+
 	reward = list()
 	for x in range(0,n):
 		k = randint(-5,5)
@@ -34,9 +37,15 @@ def generateMPD():
 	file.write(str(reward))
 	file.close()
 
-def main():
-	generateMPD()
+	return n,m,total,reward
 
+
+
+
+def main():
+
+	n,m,total,reward = generateMPD()
+	
 
 if __name__ == '__main__':
 	main()
